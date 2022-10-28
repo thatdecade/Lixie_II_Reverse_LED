@@ -7,7 +7,7 @@ Based on the original work by Connor Nishijima: https://github.com/connornishiji
 ## Remix Notes
 - PCB redrawn with a new BOM, using reverse mount LEDs. https://www.adafruit.com/product/4960
 - EPS files for lasercutting were converted to DXF.
-- Laser Cut EPS files have been redrawn for smaller runs.  Allowing Ponoko to panelize the job as they wish.  Be sure to read https://help.ponoko.com/en/articles/4405518-getting-started-with-ponoko
+- Laser Cut files have been redrawn for smaller runs.  Allowing Ponoko to panelize the job as they wish.  Be sure to read https://help.ponoko.com/en/articles/4405518-getting-started-with-ponoko
 
 |Filename|Supplier|Material|Thickness|
 | ----------- | ----------- | ----------- | ----------- |

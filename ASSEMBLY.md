@@ -44,6 +44,7 @@ To put this kit together, you will need to order parts below.  One set per digit
 - The order of each acrylic digit is important (front to back): 1 0 2 9 3 8 4 7 5 6 .
 - Before working with the acrylic, it is important that you wear gloves.  Fingerprints can be cleaned from the acrylic, but let's try and skip that step.
 - Peeling from the bottom of each digit will allow you to hide any initial blemishes.
+- At the end, you may see bits of dust or paper shreds stuck to the acrylic.  Blast with a little compressed air.
 
 # Power Up and Programming
 

@@ -6,8 +6,14 @@ Based on the original work by Connor Nishijima: https://github.com/connornishiji
 
 ## Remix Notes
 - PCB redrawn with a new BOM, using reverse mount LEDs. https://www.adafruit.com/product/4960
+  - Loosely based on Adafruit's RGB NeoKey https://www.adafruit.com/product/5157
+  - One capacitor per LED
+  - Transmission resistors for stable data
 - EPS files for lasercutting were converted to DXF.
-- Laser Cut files have been redrawn for smaller runs.  Allowing Ponoko to panelize the job as they wish.  Be sure to read https://help.ponoko.com/en/articles/4405518-getting-started-with-ponoko
+- Laser Cut files have been redrawn for smaller runs.  
+  - Ordering one set = One Digit of the Display
+  - Ponoko wil auto-panelize larger orders together.
+  - Be sure to read https://help.ponoko.com/en/articles/4405518-getting-started-with-ponoko
 
 |Filename|Supplier|Material|Thickness|
 | ----------- | ----------- | ----------- | ----------- |
@@ -17,7 +23,7 @@ Based on the original work by Connor Nishijima: https://github.com/connornishiji
 |LIGHTFILTER.dxf|Ponoko|6061-T6 Aluminum|1|
 
 
-- BOM excel sheet calculates the cost (including electronics) based on how many you would like to make.  
+- LixieII_Price_Calculator.xlsx calculates the cost (including electronics) based on how many you would like to make.  
 Here are some BOM estimates as of Oct 28, 2022:
 
 |QTY|Total Cost|Cost Each|

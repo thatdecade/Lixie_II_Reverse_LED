@@ -41,5 +41,4 @@ Here are some BOM estimates as of Oct 28, 2022:
 ## Todo
 
 - Convert Lightplate into pcb gerbers for cheaper cutting
-- Convert base kit 3d files into scad for easy remixing using thingiverse customizer. 
 

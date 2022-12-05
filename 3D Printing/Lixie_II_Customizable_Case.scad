@@ -14,19 +14,26 @@
 // ********************
 // Set options here
 
-digits = 4; //Min is 1
+digits = 2; //Min is 1
 
 chamfer = 2;
 
 screw_hole_diameter = 3; //M3 = 3mm
 
-want_button = 1;
+want_button = 0;
 
 want_power_cable = 1;
+
+want_pre_cuts_and_glue_tabs = 1;
 
 switch_hole_diameter = 12; //set want_button=1
 
 usb_cable_diameter = 5;  //set want_power_cable=1
+
+window_x = 59.05;
+window_y = 29.20;
+
+max_printer_bed_size = 180; //set want_pre_cuts_and_glue_tabs=1, Prusa Mk3 = 21cm (8.3")
 
 // ********************
 // CALCULATED
@@ -52,26 +59,144 @@ outer_depth_z  = 26 + top_wall_thickness;
 
 switch_hole_z_offset_from_center = outer_depth_z/2-top_wall_thickness/2;
 
+window_x_size_adj = window_x + loose_fit;
+window_y_size_adj = window_y + loose_fit;
+
+glue_tab_insert_depth = 4;
+
 // ********************
 // MODULES
 // ********************
 
-difference()
+//max_printer_bed_size
+if((want_pre_cuts_and_glue_tabs == 0) || outer_length_x < max_printer_bed_size)
 {
-    union()
+    draw_body();
+}
+else
+{
+    cut_offsets = glue_tab_insert_depth*2;
+    
+    //cut up the body every max_printer_bed_size size
+
+    number_of_cuts = ceil(outer_length_x / max_printer_bed_size); //round up
+    negative_width = number_of_cuts - 1;
+    
+    //left side
+    draw_body_cut(
+        x1_position = outer_length_x * 1 / number_of_cuts, 
+        cut_width  = outer_length_x  * negative_width / number_of_cuts, 
+        cut_offset = cut_offsets * 0, 
+        want_tabs  = true);
+    
+    //inner parts
+    if(number_of_cuts-2 > 0)
     {
-        outer_base_shape(use_chamfer=true);
-        draw_switch_outline();
+        for(i = [1 : number_of_cuts-2])
+        {
+            cut_width = outer_length_x  * negative_width / number_of_cuts;
+            slice_width = outer_length_x / number_of_cuts;
+            
+            draw_body_cut(
+                x1_position = -cut_width+slice_width*i, 
+                x2_position = slice_width*(i+1), 
+                cut_width  = cut_width,
+                cut_offset = cut_offsets * i, 
+                want_tabs  = true);
+        }
     }
     
-    inner_base_shape();
+    //right side
+    draw_body_cut(
+        x1_position = 0, 
+        cut_width  = outer_length_x  * negative_width / number_of_cuts, 
+        cut_offset = cut_offsets * (number_of_cuts-1), 
+        want_tabs  = false);
     
-    display_and_screw_cutouts();
-    
-    if(want_button) draw_button();
-        
-    if(want_power_cable) draw_power_cable();
 }
+
+module draw_body_cut(x1_position, x2_position=0, cut_width, cut_offset, want_tabs=false)
+{
+    translate([cut_offset,0,0]) 
+    difference()
+    {
+        draw_body();
+        
+        //cutter 1
+        translate([x1_position-1,-1,-1]) 
+        cube([cut_width+2,outer_width_y+2,outer_depth_z+2]);
+        
+        //cutter 2
+        if(x2_position != 0) translate([x2_position-1,-1,-1]) 
+        cube([cut_width+2,outer_width_y+2,outer_depth_z+2]);
+    }
+    if(want_tabs)
+    {
+        if(x2_position > 0)
+        {
+            glue_tabs((x2_position - 1 + cut_offset) - glue_tab_insert_depth);
+        }
+        else
+        {
+            glue_tabs((x1_position - 1) - glue_tab_insert_depth);
+        }
+    }
+}
+
+module draw_body()
+{
+    difference()
+    {
+        union()
+        {
+            outer_base_shape(use_chamfer=true);
+            if(want_button) draw_switch_outline();
+        }
+        
+        inner_base_shape();
+        
+        display_and_screw_cutouts();
+        
+        if(want_button) draw_button();
+            
+        if(want_power_cable) draw_power_cable();
+    }
+}
+
+//TBD, tabs
+module glue_tabs(x_position)
+{
+    translate([x_position,0,0])
+    {
+        translate([0,side_wall_thickness,0])
+        glue_tab();
+        
+        translate([0,outer_width_y-side_wall_thickness*2,0])
+        glue_tab();
+    }
+}
+
+module glue_tab()
+{
+    z_alignment = 0.5;
+    
+    tab_height = outer_depth_z-top_wall_thickness*2-4;
+    
+    //tab
+    cube([glue_tab_insert_depth*2, side_wall_thickness, tab_height+z_alignment]);
+    
+    //printability ledge
+    translate([-glue_tab_insert_depth+0.68,0,0])
+    difference()
+    {
+        translate([0,0,tab_height+z_alignment])
+        rotate([0,45,0]) cube([glue_tab_insert_depth*2, side_wall_thickness, glue_tab_insert_depth*2]);
+        
+        translate([-glue_tab_insert_depth*1.17,-2,0])
+        cube([glue_tab_insert_depth*2, side_wall_thickness+4, tab_height*2+z_alignment]);
+    }
+}
+
 
 module draw_power_cable()
 {
@@ -158,8 +283,11 @@ module display_and_screw_cutouts()
 
 module display_cutout(x_offset)
 {
-    translate([14.55+x_offset,11.55,-0.5])
-    cube([49.2,46.9,outer_depth_z+1]);
+    display_x_position = -window_x_size_adj/2+39+x_offset;
+    display_y_position = -window_y_size_adj/2+35;
+    
+    translate([display_x_position,display_y_position,-0.5])
+    cube([window_x_size_adj,window_y_size_adj,outer_depth_z+1]);
 }
 
 module outer_base_yz_2d_shape(chamfer_adj)

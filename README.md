@@ -14,6 +14,7 @@ Based on the original work by Connor Nishijima: https://github.com/connornishiji
   - Ordering one set = One Digit of the Display
   - Ponoko wil auto-panelize larger orders together.
   - Be sure to read https://help.ponoko.com/en/articles/4405518-getting-started-with-ponoko
+- 3D Printed versions of some of the lasercut files
 
 |Filename|Supplier|Material|Thickness|
 | ----------- | ----------- | ----------- | ----------- |

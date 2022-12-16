@@ -218,6 +218,15 @@
 <wire x1="-1" y1="-4.7" x2="1" y2="-4.7" width="0.1" layer="51"/>
 <wire x1="-1" y1="4.7" x2="1" y2="4.7" width="0.1" layer="51"/>
 <text x="-1.905" y="-3.302" size="1.27" layer="25">&gt;NAME</text>
+<wire x1="-1.6" y1="-1.3" x2="-1.6" y2="0.8" width="0.1" layer="22"/>
+<wire x1="-1.6" y1="0.8" x2="-1.6" y2="1.4" width="0.1" layer="22"/>
+<wire x1="-1" y1="1.4" x2="1.6" y2="1.4" width="0.1" layer="22"/>
+<wire x1="1.6" y1="1.4" x2="1.6" y2="-1.3" width="0.1" layer="22"/>
+<wire x1="1.6" y1="-1.3" x2="-1.6" y2="-1.3" width="0.1" layer="22"/>
+<wire x1="-0.3" y1="2.1" x2="-0.6" y2="2.4" width="0.1" layer="22"/>
+<circle x="0" y="0" radius="0.9055375" width="0.1" layer="22"/>
+<wire x1="-1.6" y1="0.8" x2="-0.3" y2="2.1" width="0.1" layer="22"/>
+<wire x1="-0.6" y1="2.4" x2="-1.6" y2="1.4" width="0.1" layer="22"/>
 </package>
 <package name="SK6812-E-SMD_ROT">
 <smd name="4" x="-2.7" y="-0.75" dx="1.0922" dy="0.889" layer="16"/>

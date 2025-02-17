@@ -4,6 +4,11 @@ Want to make your own Lixie II, but don't want to spend $$$$? You're in the righ
 
 Based on the original work by Connor Nishijima: https://github.com/connornishijima/Lixie_II_OSHW
 
+**Photo Album**
+https://photos.app.goo.gl/PVswYqP2KvHP66T27
+
+![Assembled Lixie Clock with Reverse LEDs](IMAGES/IMG_8214.JPG)
+
 ## Remix Notes
 - PCB redrawn with a new BOM, using reverse mount LEDs. https://www.adafruit.com/product/4960
   - Loosely based on Adafruit's RGB NeoKey https://www.adafruit.com/product/5157
